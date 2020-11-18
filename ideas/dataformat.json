@@ -1,0 +1,10 @@
+{
+  "wheels": {
+    "$W33D": {
+      "availability": ["model3"]
+      "api": ["Ueberturbine20"],
+      "name": "Ueberturbine 20",
+      "performance": true,
+    }
+  }
+}
