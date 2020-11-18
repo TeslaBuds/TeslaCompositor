@@ -146,3 +146,39 @@ func decodeVIN(vin: String?) -> decodedVin?
     }
     return decodedVin(carType: model, awd: awd, year: year)
 }
+
+
+extension UIImage {
+    
+    func croppedToModel(_ model: String?) -> UIImage? {
+        switch model {
+        case "models":
+            return self.cropped(rect: CGRect(x: self.size.width * -0.1, y: self.size.height * 0.07, width: self.size.width * 0.80, height: self.size.height - self.size.height * 0.250))
+        case "model3":
+            return self.cropped(rect: CGRect(x: self.size.width * -0.13, y: self.size.height * 0.178, width: self.size.width * 0.72, height: self.size.height - self.size.height * 0.356))
+        case "modelx":
+            return self.cropped(rect: CGRect(x: self.size.width * -0.20, y: self.size.height * 0.18, width: self.size.width * 0.60, height: self.size.height - self.size.height * 0.400))
+        case "modely":
+            return self.cropped(rect: CGRect(x: self.size.width * -0.11, y: self.size.height * 0.107, width: self.size.width * 0.78, height: self.size.height - self.size.height * 0.213))
+        default:
+            return self
+        }
+    }
+
+    func cropped(rect: CGRect) -> UIImage? {
+        guard let cgImage = cgImage else { return nil }
+
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0)
+        let context = UIGraphicsGetCurrentContext()
+
+        context?.translateBy(x: 0.0, y: self.size.height)
+        context?.scaleBy(x: 1.0, y: -1.0)
+        context?.draw(cgImage, in: CGRect(x: rect.minX, y: rect.minY, width: self.size.width, height: self.size.height), byTiling: false)
+
+
+        let croppedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return croppedImage
+    }
+}
